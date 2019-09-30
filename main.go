@@ -29,6 +29,8 @@ func main() {
 	http.HandleFunc("/todo/others", listCtrl.OthersTasks)
 	http.HandleFunc("/todo/find", listCtrl.Find)
 	http.HandleFunc("/todo/help", showApi)
+	http.HandleFunc("/health", heartBeatHandler)
+	http.HandleFunc("/readiness", heartBeatHandler)
 
 	// Helper mapping for testing (Shouldn't be exposed on a production service)
 	http.HandleFunc("/todo/users", listCtrl.Users)
@@ -47,6 +49,10 @@ func showApi(w http.ResponseWriter, r *http.Request) {
 	w.Write(helpText())
 	w.WriteHeader(http.StatusOK)
 }
+func heartBeatHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+}
+
 
 func helpText() []byte {
 	var by bytes.Buffer

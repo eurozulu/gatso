@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"net/url"
 	"os"
@@ -17,9 +16,14 @@ const configName = "todo-properties.json"
 type Config map[string]interface{}
 
 func Newconfig() (Config, error) {
+	// First check if ENV TODOHOME is set
 	home, ok := os.LookupEnv(configEnvKey)
 	if !ok || len(home) == 0 {
-		return nil, fmt.Errorf("Config environment variable '%s' has not been set", configEnvKey)
+		var err error
+		home, err = os.Getwd()
+		if nil != err {
+			return nil, err
+		}
 	}
 	f, err := os.Open(path.Join(home, configName))
 	if nil != err {

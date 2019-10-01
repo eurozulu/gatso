@@ -39,4 +39,9 @@ Security:
 The service is not secure in any way.  Non encrypted/TLS endpoints are used to simplify testing.
 insecure username/passwords in plain text config and deployment files.
 No additional checks are carried out on inbound requests.
+No authentication / authorisation enabled on endpoints.
 
+Minimal dependencies
+Dependencies have been kept to a minimum to keep the project simple.
+Production code would employ third party libaries for some aspects such as:
+http mux and json as the regular packages are not very performant.

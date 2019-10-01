@@ -53,7 +53,6 @@ func heartBeatHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-
 func helpText() []byte {
 	var by bytes.Buffer
 	by.WriteString("Todo API helper\n")
@@ -73,8 +72,11 @@ func helpText() []byte {
 	by.WriteString("\t\t    Returns json of all tasks not owned by owner, where owner is a Reader of the task\n")
 
 	by.WriteString("\t./todo/find?owner=nn\t<body must have json of task properties to search by>\n")
-	by.WriteString("\t\tGET Gets the tasks from other users todo lists the owner has access to\n")
-	by.WriteString("\t\t    Returns json of all tasks not owned by owner, where owner is a Reader of the task\n")
+	by.WriteString("\t\tGET Searches the owners tasks for tasks matching the values given in the query task to\n")
+	by.WriteString("\t\t    Body should contain a single task json object containing the values to search for\n")
+	by.WriteString("\t\t    String value look for exactly match. Created date will return all tasks create on or after that date.\n")
+	by.WriteString("\t\t    Expires date will return all tasks create before that date.\n")
+	by.WriteString("\t\t    Array value, notes, labels, readers will match tasks will ALL the given elements of the array in the corrisponding array.\n")
 
 	return by.Bytes()
 }
